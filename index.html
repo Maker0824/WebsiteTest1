@@ -1,41 +1,66 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Random Number Generator</title>
+    <title>Random Option Generator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            margin-top: 100px;
+            margin-top: 50px;
+        }
+
+        label {
+            display: inline-block;
+            width: 150px;
+            text-align: left;
+        }
+
+        #output {
+            margin-top: 30px;
+            font-size: 18px;
         }
     </style>
 </head>
 <body>
-    <h1>Random Number Generator</h1>
+    <h1>Random Option Generator</h1>
     <div>
-        <label for="min">Minimum:</label>
-        <input type="number" id="min" value="1">
-        <label for="max">Maximum:</label>
-        <input type="number" id="max" value="100">
-        <button onclick="generateRandomNumber()">Generate</button>
+        <label for="option1">Option 1:</label>
+        <input type="checkbox" id="option1">
     </div>
     <div>
-        <h2>Random Number:</h2>
-        <p id="randomNumber">Click "Generate" to get a random number within the specified range.</p>
+        <label for="option2">Option 2:</label>
+        <input type="checkbox" id="option2">
     </div>
+    <!-- Add more option areas as needed -->
+
+    <button onclick="generateRandomOption()">Generate</button>
+
+    <div id="output"></div>
 
     <script>
-        function generateRandomNumber() {
-            const min = parseInt(document.getElementById('min').value);
-            const max = parseInt(document.getElementById('max').value);
+        function generateRandomOption() {
+            // Get the values of the options
+            const option1 = document.getElementById('option1').checked;
+            const option2 = document.getElementById('option2').checked;
+            // Add more options as needed
 
-            if (isNaN(min) || isNaN(max) || min >= max) {
-                alert('Invalid input. Please enter valid numbers, with the minimum value less than the maximum value.');
-                return;
+            // Create an array to store the options
+            const options = [];
+
+            // Push the options into the array based on their status (true/false)
+            if (option1) options.push('Option 1');
+            if (option2) options.push('Option 2');
+            // Add more options as needed
+
+            // If no options are selected, display a message
+            if (options.length === 0) {
+                document.getElementById('output').innerText = 'Please select at least one option.';
+            } else {
+                // Generate a random index within the array length
+                const randomIndex = Math.floor(Math.random() * options.length);
+                // Display the randomly chosen option
+                document.getElementById('output').innerText = `Randomly Chosen Option: ${options[randomIndex]}`;
             }
-
-            const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-            document.getElementById('randomNumber').innerText = `Random Number: ${randomNumber}`;
         }
     </script>
 </body>
