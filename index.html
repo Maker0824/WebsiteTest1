@@ -21,16 +21,28 @@
         #output {
             margin-top: 30px;
             font-size: 18px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            display: grid; /* Use CSS grid for the layout */
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Adjust column width as needed */
+            grid-gap: 10px; /* Add gap between grid items */
         }
 
-        .card {
-            background-color: #3a3f4b;
-            color: #f0f0f0;
-            padding: 5px 10px;
-            margin: 5px;
+        .grid-item {
+            background-color: #282c34; /* Default background color for the grid items */
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        /* Add more CSS rules for different background colors based on your rules */
+        .blue-bg {
+            background-color: blue;
+        }
+
+        .green-bg {
+            background-color: green;
+        }
+
+        .red-bg {
+            background-color: red;
         }
 
         /* Dark theme specific styles */
@@ -69,87 +81,66 @@
     <div id="output"></div>
 
     <script>
-        const cardNames = {
-            "2cost": ["Card 1", "Card 2"],
-            "3cost": ["Card 3", "Card 4"],
-            "4cost": ["Card 5", "Card 6", "Card 7", "Card 8"],
-            "5cost": ["Card 9", "Card 10"]
-            // Add more cards to other cost categories as needed
+        const cardNames={
+            "2cost":["Cellar","Chapel","Moat","Courtyard","Pawn","Secret Chamber","Wishing Well"],
+            "3cost":["Chancellor","Village","Woodcutter","Workshop","Great Hall","Masquerade","Shanty Town","Steward","Swindler"],
+            "4cost":["Bureaucrat","Feast","Gardens","Militia (mean)","Moneylender","Remodel","Smithy","Spy","Thief","Throne Room","Baron","Bridge","Conspirator","CopperSmith","IronWorks","Mining Village","Scout"],
+            "5cost":["Adventurer","Council Room","Festival","Laboratory","Library","Market","Mine","Witch (mean)","Minion","Saboteur","Duke","Harem","Nobles","Torturer (mean)","Trading Post","Tribute","Upgrade"]
         }
 
-        function RandInt(min, max) {
-            return Math.floor(Math.random() * (max - min + 1) + min)
+        function RandInt(min,max){
+            return Math.floor(Math.random()*(max-min+1)+min)
         }
 
-        function RandomSet() {
-            let Sety = [1, 2, 2, 2]
-            Sety[Math.round(Math.random())] += 1;
-            let Valy = Math.round(Math.random()) + 2;
-            Sety[Valy] += 1
-            let Valey = RandInt(1, 3)
-            if (Valy == 3) {
-                Valey -= 1
+        function RandomSet(){
+            let Sety=[1,2,2,2]
+            Sety[Math.round(Math.random())]+=1;
+            let Valy=Math.round(Math.random())+2;
+            Sety[Valy]+=1
+            let Valey=RandInt(1,3)
+            if (Valy==3) {
+                Valey-=1
             }
-            Sety[Valey] += 1
+            Sety[Valey]+=1
             return Sety
         }
 
         function generateRandomOption() {
+            console.log(cardNames);
             // Get the values of the options
             const option1 = document.getElementById('option1').checked;
             const option2 = document.getElementById('option2').checked;
             // Add more options as needed
             const CardSet = RandomSet();
+            const outputElement = document.getElementById('output');
 
-            // Generate a list of cards with different backgrounds
-            const outputDiv = document.getElementById('output');
-            outputDiv.innerHTML = ""; // Clear previous content
+            // Clear the previous content in the output element
+            outputElement.innerHTML = '';
 
-            let cardCount = 0;
+            // Iterate through the CardSet and display the cards in a grid
+            for (let i = 0; i < CardSet.length; i++) {
+                const cardSetCategory = `${CardSet[i]}cost`;
+                const cards = cardNames[cardSetCategory];
+                const gridItem = document.createElement('div');
+                gridItem.classList.add('grid-item');
 
-            // First row (2 items)
-            for (let i = 0; i < 2; i++) {
-                const card = document.createElement("div");
-                card.className = "card";
-                card.innerText = cardNames["2cost"][i]; // Placeholder text, you can replace it with actual card names
-                outputDiv.appendChild(card);
-                cardCount++;
-            }
+                // Add different background colors based on your rules here
+                if (i % 2 === 0) {
+                    gridItem.classList.add('blue-bg');
+                } else {
+                    gridItem.classList.add('green-bg');
+                }
 
-            // Second row (2 items)
-            for (let i = 0; i < 2; i++) {
-                const card = document.createElement("div");
-                card.className = "card";
-                card.innerText = cardNames["3cost"][i]; // Placeholder text, you can replace it with actual card names
-                outputDiv.appendChild(card);
-                cardCount++;
-            }
+                // Append the card names to the grid item
+                for (let j = 0; j < CardSet[i]; j++) {
+                    const cardName = cards[j];
+                    const cardElement = document.createElement('p');
+                    cardElement.textContent = cardName;
+                    gridItem.appendChild(cardElement);
+                }
 
-            // Third row (4 items)
-            for (let i = 0; i < 4; i++) {
-                const card = document.createElement("div");
-                card.className = "card";
-                card.innerText = cardNames["4cost"][i]; // Placeholder text, you can replace it with actual card names
-                outputDiv.appendChild(card);
-                cardCount++;
-            }
-
-            // Fourth row (2 items)
-            for (let i = 0; i < 2; i++) {
-                const card = document.createElement("div");
-                card.className = "card";
-                card.innerText = cardNames["5cost"][i]; // Placeholder text, you can replace it with actual card names
-                outputDiv.appendChild(card);
-                cardCount++;
-            }
-
-            // Add empty space if less than 10 items generated
-            while (cardCount < 10) {
-                const card = document.createElement("div");
-                card.className = "card";
-                card.innerText = "Empty"; // Placeholder text for empty space
-                outputDiv.appendChild(card);
-                cardCount++;
+                // Append the grid item to the output element
+                outputElement.appendChild(gridItem);
             }
         }
     </script>
