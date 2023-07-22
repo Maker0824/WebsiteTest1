@@ -79,24 +79,9 @@
             const option1 = document.getElementById('option1').checked;
             const option2 = document.getElementById('option2').checked;
             // Add more options as needed
-
-            // Create an array to store the options
-            const options = [];
-
-            // Push the options into the array based on their status (true/false)
-            if (option1) options.push('Option 1');
-            if (option2) options.push('Option 2');
-            // Add more options as needed
-
-            // If no options are selected, display a message
-            if (options.length === 0) {
-                document.getElementById('output').innerText = 'Please select at least one option.';
-            } else {
-                // Generate a random index within the array length
-                // const randomIndex = Math.floor(Math.random() * options.length);
-                const CardSet=RandomSet()
-                // Display the randomly chosen option
-                document.getElementById('output').innerText = JSON.stringify(CardSet);
+            const CardSet=RandomSet()
+            // Display the randomly chosen option
+            document.getElementById('output').innerText = JSON.stringify(CardSet);
             }
         }
     </script>
