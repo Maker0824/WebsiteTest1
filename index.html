@@ -65,6 +65,7 @@
           .then(data => {
             cardNames = data.cards;
             // Use cardNames array in your code
+              console.log(cardNames)
           });
 
         function RandInt(min,max){
@@ -83,6 +84,7 @@
             return Sety
         }
         function generateRandomOption() {
+            console.log(cardNames)
             // Get the values of the options
             const option1 = document.getElementById('option1').checked;
             const option2 = document.getElementById('option2').checked;
