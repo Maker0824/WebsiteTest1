@@ -59,6 +59,13 @@
     <div id="output"></div>
 
     <script>
+        fetch("cardList.json")
+          .then(response => response.json())
+          .then(data => {
+            const cardNames = data.cards;
+            // Use cardNames array in your code
+          });
+
         function RandInt(min,max){
             return Math.floor(Math.random()*(max-min+1)+min)
         }
@@ -81,7 +88,8 @@
             // Add more options as needed
             const CardSet=RandomSet()
             // Display the randomly chosen option
-            document.getElementById('output').innerText = JSON.stringify(CardSet);
+            //document.getElementById('output').innerText = JSON.stringify(CardSet);
+            document.getElementById('output').innerText = JSON.stringify(cardNames);
             }
         }
     </script>
