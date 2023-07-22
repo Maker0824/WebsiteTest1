@@ -106,39 +106,36 @@
         }
 
         function generateRandomOption() {
-            console.log(cardNames);
-            // Get the values of the options
-            const option1 = document.getElementById('option1').checked;
-            const option2 = document.getElementById('option2').checked;
-            // Add more options as needed
+            // Your existing code here
+    
             const CardSet = RandomSet();
             const outputElement = document.getElementById('output');
-
+    
             // Clear the previous content in the output element
             outputElement.innerHTML = '';
-
+    
             // Iterate through the CardSet and display the cards in a grid
             for (let i = 0; i < CardSet.length; i++) {
                 const cardSetCategory = `${CardSet[i]}cost`;
                 const cards = cardNames[cardSetCategory];
                 const gridItem = document.createElement('div');
                 gridItem.classList.add('grid-item');
-
+    
                 // Add different background colors based on your rules here
                 if (i % 2 === 0) {
                     gridItem.classList.add('blue-bg');
                 } else {
                     gridItem.classList.add('green-bg');
                 }
-
+    
                 // Append the card names to the grid item
-                for (let j = 0; j < CardSet[i]; j++) {
+                for (let j = 0; j < cards.length && j < CardSet[i]; j++) {
                     const cardName = cards[j];
                     const cardElement = document.createElement('p');
                     cardElement.textContent = cardName;
                     gridItem.appendChild(cardElement);
                 }
-
+    
                 // Append the grid item to the output element
                 outputElement.appendChild(gridItem);
             }
