@@ -82,15 +82,29 @@
             return Sety
         }
         function generateRandomOption() {
-            console.log(cardNames)
             // Get the values of the options
             const option1 = document.getElementById('option1').checked;
             const option2 = document.getElementById('option2').checked;
             // Add more options as needed
-            const CardSet=RandomSet()
-            // Display the randomly chosen option
-            //document.getElementById('output').innerText = JSON.stringify(CardSet);
-            document.getElementById('output').innerText = "The Cards Are: "+JSON.stringify(cardNames["2cost"]);
+            const CardSet = RandomSet();
+            
+            // Display the randomly chosen option in a 4x4 grid
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = ''; // Clear the previous output
+            
+            for (let i = 0; i < 4; i++) {
+                for (let j = 0; j < 4; j++) {
+                    const gridItem = document.createElement('div');
+                    gridItem.classList.add('grid-item');
+                    // Customize the background color based on your rules
+                    // For now, let's add a rule that makes 2cost cards have a different color
+                    if (CardSet[i] === 2) {
+                        gridItem.style.backgroundColor = '#00ff00'; // Green background for 2cost cards
+                    }
+                    gridItem.textContent = cardNames[`${CardSet[i]}cost`][j];
+                    outputDiv.appendChild(gridItem);
+                }
+            }
         }
     </script>
 </body>
