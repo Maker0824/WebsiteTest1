@@ -59,11 +59,11 @@
     <div id="output"></div>
 
     <script>
-        //let cardNames="A dang global varible"
+        let cardNames="A dang global varible"
         fetch("cardList.json")
           .then(response => response.json())
           .then(data => {
-            const cardNames = data.cards;
+            cardNames = data.cards;
             // Use cardNames array in your code
           });
 
