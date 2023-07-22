@@ -44,13 +44,13 @@
         function RandomSet(){
             let Sety=[1,2,2,2]
             Sety[Math.round(Math.random())]+=1;
-            let Valy=Math.round(Math.random())+1;
+            let Valy=Math.round(Math.random())+2;
             Sety[Valy]+=1
-            Valy=RandInt(1,3)
+            let Valey=RandInt(1,3)
             if (Valy==3) {
-                Valy-=1
+                Valey-=1
             }
-            Sety[Valy]+=1
+            Sety[Valey]+=1
             return Sety
         }
         function generateRandomOption() {
