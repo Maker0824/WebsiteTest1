@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Random Option Generator</title>
+    <title>Random Set Generator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -38,6 +38,21 @@
     <div id="output"></div>
 
     <script>
+        function RandInt(min,max){
+            return Math.floor(Math.random()*(max-min+1)+min)
+        }
+        function RandomSet(){
+            let Sety=[1,2,2,2]
+            Sety[Math.round(Math.random())]+=1;
+            let Valy=Math.round(Math.random())+1;
+            Sety[Valy]+=1
+            let Valy=RandInt(1,3)
+            if (Valy==3) {
+                Valy-=1
+            }
+            Sety[Valy]+=1
+            return Sety
+        }
         function generateRandomOption() {
             // Get the values of the options
             const option1 = document.getElementById('option1').checked;
@@ -57,9 +72,10 @@
                 document.getElementById('output').innerText = 'Please select at least one option.';
             } else {
                 // Generate a random index within the array length
-                const randomIndex = Math.floor(Math.random() * options.length);
+                // const randomIndex = Math.floor(Math.random() * options.length);
+                const CardSet=RandomSet()
                 // Display the randomly chosen option
-                document.getElementById('output').innerText = `Randomly Chosen Option: ${options[randomIndex]}`;
+                document.getElementById('output').innerText = JSON.stringify(CardSet);
             }
         }
     </script>
