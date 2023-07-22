@@ -70,7 +70,10 @@
 
     <script>
         const cardNames = {
-            "2cost": ["Card 1", "Card 2", "Card 3", "Card 4", "Card 5", "Card 6", "Card 7", "Card 8", "Card 9", "Card 10"],
+            "2cost": ["Card 1", "Card 2"],
+            "3cost": ["Card 3", "Card 4"],
+            "4cost": ["Card 5", "Card 6", "Card 7", "Card 8"],
+            "5cost": ["Card 9", "Card 10"]
             // Add more cards to other cost categories as needed
         }
 
@@ -102,11 +105,51 @@
             const outputDiv = document.getElementById('output');
             outputDiv.innerHTML = ""; // Clear previous content
 
-            for (let i = 0; i < CardSet.length; i++) {
+            let cardCount = 0;
+
+            // First row (2 items)
+            for (let i = 0; i < 2; i++) {
                 const card = document.createElement("div");
                 card.className = "card";
                 card.innerText = cardNames["2cost"][i]; // Placeholder text, you can replace it with actual card names
                 outputDiv.appendChild(card);
+                cardCount++;
+            }
+
+            // Second row (2 items)
+            for (let i = 0; i < 2; i++) {
+                const card = document.createElement("div");
+                card.className = "card";
+                card.innerText = cardNames["3cost"][i]; // Placeholder text, you can replace it with actual card names
+                outputDiv.appendChild(card);
+                cardCount++;
+            }
+
+            // Third row (4 items)
+            for (let i = 0; i < 4; i++) {
+                const card = document.createElement("div");
+                card.className = "card";
+                card.innerText = cardNames["4cost"][i]; // Placeholder text, you can replace it with actual card names
+                outputDiv.appendChild(card);
+                cardCount++;
+            }
+
+            // Fourth row (2 items)
+            for (let i = 0; i < 2; i++) {
+                const card = document.createElement("div");
+                card.className = "card";
+                card.innerText = cardNames["5cost"][i]; // Placeholder text, you can replace it with actual card names
+                outputDiv.appendChild(card);
+                cardCount++;
+            }
+
+            // Add empty space if less than 10 items generated
+            while (cardCount < 10) {
+                const card = document.createElement("div");
+                card.className = "card";
+                card.innerText = "Empty"; // Placeholder text for empty space
+                outputDiv.appendChild(card);
+                cardCount++;
             }
         }
     </script>
