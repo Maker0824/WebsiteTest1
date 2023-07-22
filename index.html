@@ -59,11 +59,11 @@
     <div id="output"></div>
 
     <script>
-        let cardNames="A dang global varible"
+        //let cardNames="A dang global varible"
         fetch("cardList.json")
           .then(response => response.json())
           .then(data => {
-            cardNames = data.cards;
+            const cardNames = data.cards;
             // Use cardNames array in your code
           });
 
@@ -91,7 +91,6 @@
             // Display the randomly chosen option
             //document.getElementById('output').innerText = JSON.stringify(CardSet);
             document.getElementById('output').innerText = "The Cards Are: "+JSON.stringify(cardNames);
-            }
         }
     </script>
 </body>
