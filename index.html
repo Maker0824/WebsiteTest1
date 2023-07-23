@@ -100,7 +100,8 @@
             console.log(CardSet)
             for (let costs=0;costs<=3;costs++){
                 for (let count=0;count<CardSet[costs];count++){
-                    document.getElementById(IDS[costs]).innerText=cardNames[IDS[costs]][count]
+                    const cerd=document.createTextNode(cardNames[IDS[costs]][count])
+                    document.getElementById(IDS[costs]).appendChild=cerd
                     console.log(count)
                 }
             }
