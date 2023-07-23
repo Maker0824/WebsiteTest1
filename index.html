@@ -96,6 +96,12 @@
             const CardSet=RandomSet()
             // Display the randomly chosen option
             //document.getElementById('output').innerText = JSON.stringify(CardSet);
+            console.log(CardSet)
+            for (let costs=0,cost<=3;costs++){
+                for (let count=0,count<=CardSet[costs];count++){
+                    console.log(count)
+                }
+            }
             document.getElementById('output').innerText = "The Cards Are: "+JSON.stringify(cardNames["2cost"]);
         }
     </script>
