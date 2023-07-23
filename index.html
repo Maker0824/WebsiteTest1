@@ -58,10 +58,10 @@
 
     <div id="output"></div>
     <div class="cardDisp">
-        <div class="CostRow" id="1cost"></div>
         <div class="CostRow" id="2cost"></div>
         <div class="CostRow" id="3cost"></div>
         <div class="CostRow" id="4cost"></div>
+        <div class="CostRow" id="5cost"></div>
     </div>
 
     <script>
@@ -87,6 +87,7 @@
             Sety[Valey]+=1
             return Sety
         }
+        const IDS=["2cost","3cost","4cost","5cost"]
         function generateRandomOption() {
             console.log(cardNames)
             // Get the values of the options
@@ -99,10 +100,11 @@
             console.log(CardSet)
             for (let costs=0;costs<=3;costs++){
                 for (let count=0;count<CardSet[costs];count++){
+                    document.getElementById(IDS[costs]).innerText=cardNames[IDS[costs]][count]
                     console.log(count)
                 }
             }
-            document.getElementById('output').innerText = "The Cards Are: "+JSON.stringify(cardNames["2cost"]);
+            //document.getElementById('output').innerText = "The Cards Are: "+JSON.stringify(cardNames["2cost"]);
         }
     </script>
 </body>
