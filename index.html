@@ -113,6 +113,7 @@
             return Sety
         }
         const IDS=["2cost","3cost","4cost","5cost"]
+        const Dacts=new Set(["Festival","Mining Village","Nobles","Shanty Town","Throne Room","Tribute","Village"])
         function generateRandomOption() {
             let seenCars= new Set();
             clearCostRows();
@@ -125,18 +126,25 @@
             // Display the randomly chosen option
             //document.getElementById('output').innerText = JSON.stringify(CardSet);
             console.log(CardSet)
+            let cardPicks=[]
             for (let costs=0;costs<=3;costs++){
                 let costful=[...cardNames[IDS[costs]]];
                 for (let count=0;count<CardSet[costs];count++){
                     const RIndex=Math.floor(Math.random()*costful.length);
                     const card = document.createElement("span");
                     card.textContent=costful[RIndex];
+                    cardPicks.push(costful[RIndex]);
                     costful.splice(RIndex,1)
                     card.style.color="green";
                     document.getElementById(IDS[costs]).appendChild(card);
                     console.log(count)
                 }
             }
+            let ActCount=0;
+            for (const itemy of cardPicks) {
+                if (Dacts.has(itemy)){ActCount+=1}
+            }
+            if (ActCount<2){generateRandomOption()}
             //document.getElementById('output').innerText = "The Cards Are: "+JSON.stringify(cardNames["2cost"]);
         }
     </script>
