@@ -114,6 +114,7 @@
         }
         const IDS=["2cost","3cost","4cost","5cost"]
         function generateRandomOption() {
+            let seenCars= new Set();
             clearCostRows();
             console.log(cardNames)
             // Get the values of the options
@@ -125,10 +126,12 @@
             //document.getElementById('output').innerText = JSON.stringify(CardSet);
             console.log(CardSet)
             for (let costs=0;costs<=3;costs++){
+                let costful=[...cardNames[IDS[costs]]];
                 for (let count=0;count<CardSet[costs];count++){
-                    const cerd=cardNames[IDS[costs]][count];
+                    const RIndex=Math.floor(Math.random()*costful.length);
                     const card = document.createElement("span");
-                    card.textContent=cerd;
+                    card.textContent=costful[RIndex];
+                    costful.splice(RIndex,1)
                     card.style.color="green";
                     document.getElementById(IDS[costs]).appendChild(card);
                     console.log(count)
