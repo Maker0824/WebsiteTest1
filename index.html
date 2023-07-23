@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Random Set Generator</title>
+    <title>Doiminion Card Picker</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -51,7 +51,7 @@
             display: flex; /* Make .CostRow flex container */
             flex-direction: column; /* Arrange child elements vertically */
             align-items: center; /* Center child elements horizontally */
-            width: 110px; /* Set a fixed width to .CostRow divs */
+            width: 120px; /* Set a fixed width to .CostRow divs */
             padding: 10px;
             background-color: #3a3f4b;
             border-radius: 5px;
@@ -60,7 +60,7 @@
     </style>
 </head>
 <body>
-    <h1>Random Option Generator</h1>
+    <!--<h1>Random Option Generator</h1>
     <div>
         <label for="option1">Option 1:</label>
         <input type="checkbox" id="option1">
@@ -68,19 +68,18 @@
     <div>
         <label for="option2">Option 2:</label>
         <input type="checkbox" id="option2">
-    </div>
+    </div>-->
     <!-- Add more option areas as needed -->
 
     <button onclick="generateRandomOption()">Generate</button>
 
-    <div id="output"></div>
     <div class="cardDisp">
         <div class="CostRow" id="2cost"></div>
         <div class="CostRow" id="3cost"></div>
         <div class="CostRow" id="4cost"></div>
         <div class="CostRow" id="5cost"></div>
     </div>
-
+    <div id="output"></div>
     <script>
         const cardNames={
             "2cost":["Cellar","Chapel","Moat","Courtyard","Pawn","Secret Chamber","Wishing Well"],
@@ -99,6 +98,10 @@
                     costRow.removeChild(costRow.firstChild);
                 }
             }
+            const DispRow=document.getElementById("output")
+            while (DispRow.firstChild){
+                DispRow.removeChild(DispRow.firstChild)
+            }
         }
         function RandomSet(){
             let Sety=[1,2,2,2]
@@ -113,14 +116,17 @@
             return Sety
         }
         const IDS=["2cost","3cost","4cost","5cost"]
-        const Dacts=new Set(["Festival","Mining Village","Nobles","Shanty Town","Throne Room","Tribute","Village"])
+        const Dacts=new Set(["Festival","Mining Village","Nobles","Shanty Town","Throne Room","Tribute","Village","Secret Chamber"])
+        const Sets={"Adventurer": "base","Baron": "intrigue","Bridge": "intrigue","Bureaucrat": "base","Cellar": "base","Chancellor": "base","Chapel": "base","Conspirator": "intrigue","CopperSmith": "intrigue","Council Room": "base","Courtyard": "intrigue","Duke": "intrigue","Feast": "base","Festival": "base","Gardens": "base","Great Hall": "intrigue","Harem": "intrigue","IronWorks": "intrigue","Laboratory": "base","Library": "base","Market": "base","Masquerade": "intrigue","Militia (mean)": "base","Mine": "base","Mining Village": "intrigue","Minion": "intrigue","Moat": "base","Moneylender": "base","Nobles": "intrigue","Pawn": "intrigue","Remodel": "base","Saboteur": "intrigue","Scout": "intrigue","Secret Chamber": "intrigue","Shanty Town": "intrigue","Smithy": "base","Spy": "base","Steward": "intrigue","Swindler": "intrigue","Thief": "base","Throne Room": "base","Torturer (mean)": "intrigue","Trading Post": "intrigue","Tribute": "intrigue","Upgrade": "intrigue","Village": "base","Wishing Well": "intrigue","Witch (mean)": "base","Woodcutter": "base","Workshop": "base",}
+        const SetColo={"base":"#ba9c91","intrigue":"#99aad6","seaside":"#00baf1","aclhemy":"#bcaad2"}
+        const Cols=["#ba9c91","#99aad6","#00baf1","#8b6baf"]
         function generateRandomOption() {
             let seenCars= new Set();
             clearCostRows();
             console.log(cardNames)
             // Get the values of the options
-            const option1 = document.getElementById('option1').checked;
-            const option2 = document.getElementById('option2').checked;
+            //const option1 = document.getElementById('option1').checked;
+            //const option2 = document.getElementById('option2').checked;
             // Add more options as needed
             const CardSet=RandomSet()
             // Display the randomly chosen option
@@ -132,10 +138,11 @@
                 for (let count=0;count<CardSet[costs];count++){
                     const RIndex=Math.floor(Math.random()*costful.length);
                     const card = document.createElement("span");
-                    card.textContent=costful[RIndex];
-                    cardPicks.push(costful[RIndex]);
+                    const Cname=costful[RIndex]
+                    card.textContent=Cname;
+                    cardPicks.push(Cname);
                     costful.splice(RIndex,1)
-                    card.style.color="green";
+                    card.style.color=SetColo[Sets[Cname]];
                     document.getElementById(IDS[costs]).appendChild(card);
                     console.log(count)
                 }
@@ -144,9 +151,24 @@
             for (const itemy of cardPicks) {
                 if (Dacts.has(itemy)){ActCount+=1}
             }
-            if (ActCount<2){generateRandomOption()}
+            if (ActCount<2){
+                generateRandomOption()
+                return
+            }
             //document.getElementById('output').innerText = "The Cards Are: "+JSON.stringify(cardNames["2cost"]);
+            cardPicks.sort();
+            for (const itemy of cardPicks){
+                const card = document.createElement("div");
+                card.textContent=itemy;
+                card.style.color=SetColo[Sets[itemy]];
+                //const RIndex=Math.floor(Math.random()*Cols.length);
+                //card.style.color=Cols[RIndex];
+                document.getElementById('output').appendChild(card);
+                console.log(itemy)
+            }
+            
         }
+        generateRandomOption();
     </script>
 </body>
 </html>
