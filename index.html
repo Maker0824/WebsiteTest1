@@ -40,6 +40,23 @@
         button:hover {
             background-color: #3a3f4b;
         }
+        .cardDisp {
+            display: flex; /* Make .cardDisp flex container */
+            justify-content: center; /* Center .CostRow horizontally */
+            align-items: center; /* Center .CostRow vertically */
+            margin-top: 30px;
+        }
+
+        .CostRow {
+            display: flex; /* Make .CostRow flex container */
+            flex-direction: column; /* Arrange child elements vertically */
+            align-items: center; /* Center child elements horizontally */
+            width: 110px; /* Set a fixed width to .CostRow divs */
+            padding: 10px;
+            background-color: #3a3f4b;
+            border-radius: 5px;
+            margin: 5px; /* Add margin to create spacing between .CostRow divs */
+        }
     </style>
 </head>
 <body>
@@ -75,6 +92,14 @@
         function RandInt(min,max){
             return Math.floor(Math.random()*(max-min+1)+min)
         }
+        function clearCostRows() {
+            for (let i = 0; i < IDS.length; i++) {
+                const costRow = document.getElementById(IDS[i]);
+                while (costRow.firstChild) {
+                    costRow.removeChild(costRow.firstChild);
+                }
+            }
+        }
         function RandomSet(){
             let Sety=[1,2,2,2]
             Sety[Math.round(Math.random())]+=1;
@@ -89,6 +114,7 @@
         }
         const IDS=["2cost","3cost","4cost","5cost"]
         function generateRandomOption() {
+            clearCostRows();
             console.log(cardNames)
             // Get the values of the options
             const option1 = document.getElementById('option1').checked;
@@ -100,8 +126,11 @@
             console.log(CardSet)
             for (let costs=0;costs<=3;costs++){
                 for (let count=0;count<CardSet[costs];count++){
-                    const cerd=document.createTextNode(cardNames[IDS[costs]][count]);
-                    document.getElementById(IDS[costs]).appendChild(cerd);
+                    const cerd=cardNames[IDS[costs]][count];
+                    const card = document.createElement("span");
+                    card.textContent=cerd;
+                    card.style.color="green";
+                    document.getElementById(IDS[costs]).appendChild(card);
                     console.log(count)
                 }
             }
