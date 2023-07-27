@@ -88,6 +88,8 @@
             "5cost":["Adventurer","Council Room","Festival","Laboratory","Library","Market","Mine","Witch (mean)","Minion","Saboteur","Duke","Harem","Nobles","Torturer (mean)","Trading Post","Tribute","Upgrade"]
         }
 
+        console.log(cardNames)
+
         function findCostCategory(cardName) {
             for (const [costCategory, cardsList] of Object.entries(cardNames)) {
                 if (cardsList.includes(cardName)) {
@@ -122,7 +124,11 @@
 
         function removeCardsFromDictionary(cardsDict, cardsToRemove) {
             for (const itemy of cardsToRemove){
-                delete cardsDict[findCostCategory(itemy)][itemy]
+                console.log("Here",cardsDict[findCostCategory(itemy)])
+                const listy=cardsDict[findCostCategory(itemy)]
+                console.log(listy)
+                console.log("here now",listy.indexOf(itemy))
+                listy.splice(listy.indexOf(itemy),1)
             }
         }
 
@@ -165,16 +171,17 @@
             console.log(RStart)
             console.log(cardPicks)
             //let pickList=cardNames
-            let StartCards=cardNames
+            let StartCards=deepCopy(cardNames)
+            console.log(StartCards)
             removeCardsFromDictionary(StartCards,RStart)
-            console.log(RStart)
+            console.log(StartCards)
             clearCostRows();
             for (const itemy of RStart){
                 const cost=parseInt(findCostCategory(itemy)[0])
                 CardSet[cost-2]-=1
             }
-            console.log(RStart)
-            console.log(cardPicks)
+            //console.log(RStart)
+            //console.log(cardPicks)
             while (stillLooking) {
                 //let seenCars= new Set();
                 //console.log(cardNames)
@@ -199,7 +206,7 @@
                         //card.textContent=Cname;
                         //card.style.color=SetColo[Sets[Cname]];
                         //document.getElementById(IDS[costs]).appendChild(card);
-                        console.log(Cname)
+                        //console.log(Cname)
                     }
                 }
                 let ActCount=0;
