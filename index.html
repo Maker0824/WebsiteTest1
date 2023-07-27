@@ -88,6 +88,15 @@
             "5cost":["Adventurer","Council Room","Festival","Laboratory","Library","Market","Mine","Witch (mean)","Minion","Saboteur","Duke","Harem","Nobles","Torturer (mean)","Trading Post","Tribute","Upgrade"]
         }
 
+        function findCostCategory(cardName) {
+            for (const [costCategory, cardsList] of Object.entries(cardNames)) {
+                if (cardsList.includes(cardName)) {
+                    return costCategory;
+                }
+            }
+            return null;
+        }
+
         function RandInt(min,max){
             return Math.floor(Math.random()*(max-min+1)+min)
         }
@@ -103,6 +112,34 @@
                 DispRow.removeChild(DispRow.firstChild)
             }
         }
+
+        function RandomStart(){
+            return [];
+            //const ouput=cardNames["2cost"][Math.floor(Math.random()*cardNames["2cost"].length)]
+            //console.log(ouput)
+            //return [cardNames["2cost"][Math.floor(Math.random()*cardNames["2cost"].length)]]
+        }
+
+        function removeCardsFromDictionary(cardsDict, cardsToRemove) {
+            for (const itemy of cardsToRemove){
+                delete cardsDict[findCostCategory(itemy)][itemy]
+            }
+        }
+
+        function deepCopy(obj) {
+            if (typeof obj !== 'object' || obj === null) {
+                return obj;
+            }
+
+            let copy = Array.isArray(obj) ? [] : {};
+            for (let key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                copy[key] = deepCopy(obj[key]);
+                }
+            }
+            return copy;
+            }
+
         function RandomSet(){
             let Sety=[1,2,2,2]
             Sety[Math.round(Math.random())]+=1;
@@ -121,51 +158,74 @@
         const SetColo={"base":"#ba9c91","intrigue":"#99aad6","seaside":"#00baf1","aclhemy":"#bcaad2"}
         const Cols=["#ba9c91","#99aad6","#00baf1","#8b6baf"]
         function generateRandomOption() {
-            let seenCars= new Set();
+            let stillLooking=true
+            let CardSet=RandomSet()
+            const RStart=RandomStart()
+            let cardPicks=RStart
+            console.log(RStart)
+            console.log(cardPicks)
+            //let pickList=cardNames
+            let StartCards=cardNames
+            removeCardsFromDictionary(StartCards,RStart)
+            console.log(RStart)
             clearCostRows();
-            console.log(cardNames)
-            // Get the values of the options
-            //const option1 = document.getElementById('option1').checked;
-            //const option2 = document.getElementById('option2').checked;
-            // Add more options as needed
-            const CardSet=RandomSet()
-            // Display the randomly chosen option
-            //document.getElementById('output').innerText = JSON.stringify(CardSet);
-            console.log(CardSet)
-            let cardPicks=[]
-            for (let costs=0;costs<=3;costs++){
-                let costful=[...cardNames[IDS[costs]]];
-                for (let count=0;count<CardSet[costs];count++){
-                    const RIndex=Math.floor(Math.random()*costful.length);
-                    const card = document.createElement("span");
-                    const Cname=costful[RIndex]
-                    card.textContent=Cname;
-                    cardPicks.push(Cname);
-                    costful.splice(RIndex,1)
-                    card.style.color=SetColo[Sets[Cname]];
-                    document.getElementById(IDS[costs]).appendChild(card);
-                    console.log(count)
+            for (const itemy of RStart){
+                const cost=parseInt(findCostCategory(itemy)[0])
+                CardSet[cost-2]-=1
+            }
+            console.log(RStart)
+            console.log(cardPicks)
+            while (stillLooking) {
+                //let seenCars= new Set();
+                //console.log(cardNames)
+                // Get the values of the options
+                //const option1 = document.getElementById('option1').checked;
+                //const option2 = document.getElementById('option2').checked;
+                // Add more options as needed
+                // Display the randomly chosen option
+                //document.getElementById('output').innerText = JSON.stringify(CardSet);
+                console.log(RStart)
+                cardPicks=deepCopy(RStart)
+                //console.log(StartCards)
+                for (let costs=0;costs<=3;costs++){
+                    let costful=[...StartCards[IDS[costs]]];
+                    for (let count=0;count<CardSet[costs];count++){
+                        const RIndex=Math.floor(Math.random()*costful.length);
+                        const Cname=costful[RIndex]
+                        cardPicks.push(Cname);
+                        costful.splice(RIndex,1)
+                        //console.log(count)
+                        //const card = document.createElement("span");
+                        //card.textContent=Cname;
+                        //card.style.color=SetColo[Sets[Cname]];
+                        //document.getElementById(IDS[costs]).appendChild(card);
+                        console.log(Cname)
+                    }
+                }
+                let ActCount=0;
+                for (const itemy of cardPicks) {
+                    if (Dacts.has(itemy)){ActCount+=1}
+                }
+                if (ActCount>1){
+                    stillLooking=false
                 }
             }
-            let ActCount=0;
-            for (const itemy of cardPicks) {
-                if (Dacts.has(itemy)){ActCount+=1}
-            }
-            if (ActCount<2){
-                generateRandomOption()
-                return
-            }
-            //document.getElementById('output').innerText = "The Cards Are: "+JSON.stringify(cardNames["2cost"]);
-            cardPicks.sort();
-            for (const itemy of cardPicks){
-                const card = document.createElement("div");
-                card.textContent=itemy;
-                card.style.color=SetColo[Sets[itemy]];
-                //const RIndex=Math.floor(Math.random()*Cols.length);
-                //card.style.color=Cols[RIndex];
-                document.getElementById('output').appendChild(card);
-                console.log(itemy)
-            }
+                //document.getElementById('output').innerText = "The Cards Are: "+JSON.stringify(cardNames["2cost"]);
+                cardPicks.sort();
+                //console.log(cardPicks)
+                for (const itemy of cardPicks){
+                    const card = document.createElement("span");
+                    card.textContent=itemy;
+                    card.style.color=SetColo[Sets[itemy]];
+                    document.getElementById(findCostCategory(itemy)).appendChild(card);
+                    const card2 = document.createElement("div");
+                    card2.textContent=itemy;
+                    card2.style.color=SetColo[Sets[itemy]];
+                    //const RIndex=Math.floor(Math.random()*Cols.length);
+                    //card.style.color=Cols[RIndex];
+                    document.getElementById('output').appendChild(card2);
+                    console.log(itemy)
+                }
             
         }
         generateRandomOption();
