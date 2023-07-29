@@ -82,10 +82,10 @@
     <div id="output"></div>
     <script>
         const cardNames={
-            "2cost":["Cellar","Chapel","Moat","Courtyard","Pawn","Secret Chamber","Wishing Well"],
-            "3cost":["Chancellor","Village","Woodcutter","Workshop","Great Hall","Masquerade","Shanty Town","Steward","Swindler"],
-            "4cost":["Bureaucrat","Feast","Gardens","Militia (mean)","Moneylender","Remodel","Smithy","Spy","Thief","Throne Room","Baron","Bridge","Conspirator","CopperSmith","IronWorks","Mining Village","Scout"],
-            "5cost":["Adventurer","Council Room","Festival","Laboratory","Library","Market","Mine","Witch (mean)","Minion","Saboteur","Duke","Harem","Nobles","Torturer (mean)","Trading Post","Tribute","Upgrade"]
+            "2cost":["Cellar","Chapel","Moat","Courtyard","Pawn","Secret Chamber","Wishing Well","Haven","Lighthouse","Native Village"],
+            "3cost":["Chancellor","Village","Woodcutter","Workshop","Great Hall","Masquerade","Shanty Town","Steward","Swindler","Astrolabe","Fishing Village","Lookout","Sea Chart","Smugglers","Warehouse","Monkey"],
+            "4cost":["Bureaucrat","Feast","Gardens","Militia (mean)","Moneylender","Remodel","Smithy","Spy","Thief","Throne Room","Baron","Bridge","Conspirator","CopperSmith","IronWorks","Mining Village","Scout","Blockade","Caravan","Cutpurse","Island","Sailor","Salvager","Tide Pools","Treasure Map"],
+            "5cost":["Adventurer","Council Room","Festival","Laboratory","Library","Market","Mine","Witch (mean)","Minion","Saboteur","Duke","Harem","Nobles","Torturer (mean)","Trading Post","Tribute","Upgrade","Bazaar","Corsair","Outpost","Pirate","Sea Witch","Tactician","Treasury","Wharf","Merchant Ship"]
         }
 
         console.log(cardNames)
@@ -116,10 +116,11 @@
         }
 
         function RandomStart(){
-            if (Math.random()<0.75){
+            if (Math.random()<0.6){
                 return []
             }
             const starts=[["Bridge"],["Throne Room"],["Laboratory"],["Council Room"]]
+            //console.log("length",starts.length)
             return starts[Math.floor(Math.random()*starts.length)]
             //const ouput=cardNames["2cost"][Math.floor(Math.random()*cardNames["2cost"].length)]
             //console.log(ouput)
@@ -128,10 +129,10 @@
 
         function removeCardsFromDictionary(cardsDict, cardsToRemove) {
             for (const itemy of cardsToRemove){
-                console.log("Here",cardsDict[findCostCategory(itemy)])
+                //console.log("Here",cardsDict[findCostCategory(itemy)])
                 const listy=cardsDict[findCostCategory(itemy)]
-                console.log(listy)
-                console.log("here now",listy.indexOf(itemy))
+                //console.log(listy)
+                //console.log("here now",listy.indexOf(itemy))
                 listy.splice(listy.indexOf(itemy),1)
             }
         }
@@ -164,7 +165,7 @@
         }
         const IDS=["2cost","3cost","4cost","5cost"]
         const Dacts=new Set(["Festival","Mining Village","Nobles","Shanty Town","Throne Room","Tribute","Village","Secret Chamber"])
-        const Sets={"Adventurer": "base","Baron": "intrigue","Bridge": "intrigue","Bureaucrat": "base","Cellar": "base","Chancellor": "base","Chapel": "base","Conspirator": "intrigue","CopperSmith": "intrigue","Council Room": "base","Courtyard": "intrigue","Duke": "intrigue","Feast": "base","Festival": "base","Gardens": "base","Great Hall": "intrigue","Harem": "intrigue","IronWorks": "intrigue","Laboratory": "base","Library": "base","Market": "base","Masquerade": "intrigue","Militia (mean)": "base","Mine": "base","Mining Village": "intrigue","Minion": "intrigue","Moat": "base","Moneylender": "base","Nobles": "intrigue","Pawn": "intrigue","Remodel": "base","Saboteur": "intrigue","Scout": "intrigue","Secret Chamber": "intrigue","Shanty Town": "intrigue","Smithy": "base","Spy": "base","Steward": "intrigue","Swindler": "intrigue","Thief": "base","Throne Room": "base","Torturer (mean)": "intrigue","Trading Post": "intrigue","Tribute": "intrigue","Upgrade": "intrigue","Village": "base","Wishing Well": "intrigue","Witch (mean)": "base","Woodcutter": "base","Workshop": "base",}
+        const Sets={"Adventurer": "base","Baron": "intrigue","Bridge": "intrigue","Bureaucrat": "base","Cellar": "base","Chancellor": "base","Chapel": "base","Conspirator": "intrigue","CopperSmith": "intrigue","Council Room": "base","Courtyard": "intrigue","Duke": "intrigue","Feast": "base","Festival": "base","Gardens": "base","Great Hall": "intrigue","Harem": "intrigue","IronWorks": "intrigue","Laboratory": "base","Library": "base","Market": "base","Masquerade": "intrigue","Militia (mean)": "base","Mine": "base","Mining Village": "intrigue","Minion": "intrigue","Moat": "base","Moneylender": "base","Nobles": "intrigue","Pawn": "intrigue","Remodel": "base","Saboteur": "intrigue","Scout": "intrigue","Secret Chamber": "intrigue","Shanty Town": "intrigue","Smithy": "base","Spy": "base","Steward": "intrigue","Swindler": "intrigue","Thief": "base","Throne Room": "base","Torturer (mean)": "intrigue","Trading Post": "intrigue","Tribute": "intrigue","Upgrade": "intrigue","Village": "base","Wishing Well": "intrigue","Witch (mean)": "base","Woodcutter": "base","Workshop": "base","Haven": "seaside","Lighthouse": "seaside","Native Village": "seaside","Astrolabe": "seaside","Fishing Village": "seaside","Lookout": "seaside","Sea Chart": "seaside","Smugglers": "seaside","Warehouse": "seaside","Monkey": "seaside","Blockade": "seaside","Caravan": "seaside","Cutpurse": "seaside","Island": "seaside","Sailor": "seaside","Salvager": "seaside","Tide Pools": "seaside","Treasure Map": "seaside","Bazaar": "seaside","Corsair": "seaside","Outpost": "seaside","Pirate": "seaside","Sea Witch": "seaside","Tactician": "seaside","Treasury": "seaside","Wharf": "seaside","Merchant Ship": "seaside",}
         const SetColo={"base":"#ba9c91","intrigue":"#99aad6","seaside":"#00baf1","aclhemy":"#bcaad2"}
         const Cols=["#ba9c91","#99aad6","#00baf1","#8b6baf"]
         function generateRandomOption() {
@@ -238,6 +239,7 @@
                     console.log(itemy)
                 }
             
+            document.getElementById('output').appendChild();
         }
         generateRandomOption();
     </script>
