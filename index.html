@@ -116,12 +116,14 @@
         }
 
         function RandomStart(){
-            if (Math.random()<1){
+            if (Math.random()<0.1){
                 return []
             }
-            const starts=[["Bridge"],["Throne Room"],["Laboratory"],["Council Room"]]
+            //const starts=[["Bridge"],["Throne Room"],["Laboratory"],["Council Room"],["Native Village"],["Outpost"]]
+            const Seastarts=[["Haven"],["Lighthouse"],["Native Village"],["Astrolabe"],["Fishing Village"],["Lookout"],["Sea Chart"],["Smugglers"],["Warehouse"],["Monkey"],["Blockade"],["Caravan"],["Cutpurse"],["Island"],["Sailor"],["Salvager"],["Tide Pools"],["Treasure Map"],["Bazaar"],["Corsair"],["Outpost"],["Pirate"],["Sea Witch"],["Tactician"],["Treasury"],["Wharf"],["Merchant Ship"]]
             //console.log("length",starts.length)
-            return starts[Math.floor(Math.random()*starts.length)]
+            return Seastarts[Math.floor(Math.random()*Seastarts.length)]
+            //return starts[Math.floor(Math.random()*starts.length)]
             //const ouput=cardNames["2cost"][Math.floor(Math.random()*cardNames["2cost"].length)]
             //console.log(ouput)
             //return [cardNames["2cost"][Math.floor(Math.random()*cardNames["2cost"].length)]]
