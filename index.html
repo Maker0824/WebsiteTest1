@@ -11,6 +11,10 @@
             color: #f0f0f0;
         }
 
+        #coiny {
+            font-size: 30px;
+        }
+
         label {
             display: inline-block;
             width: 150px;
@@ -51,7 +55,7 @@
             display: flex; /* Make .CostRow flex container */
             flex-direction: column; /* Arrange child elements vertically */
             align-items: center; /* Center child elements horizontally */
-            width: 120px; /* Set a fixed width to .CostRow divs */
+            width: 130px; /* Set a fixed width to .CostRow divs */
             padding: 10px;
             background-color: #3a3f4b;
             border-radius: 5px;
@@ -71,8 +75,8 @@
     </div>-->
     <!-- Add more option areas as needed -->
 
+    <div id="coiny">blank</div>
     <button onclick="generateRandomOption()">Generate</button>
-
     <div class="cardDisp">
         <div class="CostRow" id="2cost"></div>
         <div class="CostRow" id="3cost"></div>
@@ -85,7 +89,7 @@
             "2cost":["Cellar","Chapel","Moat","Courtyard","Pawn","Secret Chamber","Wishing Well","Haven","Lighthouse","Native Village"],
             "3cost":["Chancellor","Village","Woodcutter","Workshop","Great Hall","Masquerade","Shanty Town","Steward","Swindler","Astrolabe","Fishing Village","Lookout","Sea Chart","Smugglers","Warehouse","Monkey"],
             "4cost":["Bureaucrat","Feast","Gardens","Militia (mean)","Moneylender","Remodel","Smithy","Spy","Thief","Throne Room","Baron","Bridge","Conspirator","CopperSmith","IronWorks","Mining Village","Scout","Blockade","Caravan","Cutpurse","Island","Sailor","Salvager","Tide Pools","Treasure Map"],
-            "5cost":["Adventurer","Council Room","Festival","Laboratory","Library","Market","Mine","Witch (mean)","Minion","Saboteur","Duke","Harem","Nobles","Torturer (mean)","Trading Post","Tribute","Upgrade","Bazaar","Corsair","Outpost","Pirate","Sea Witch","Tactician","Treasury","Wharf","Merchant Ship"]
+            "5cost":["Adventurer","Council Room","Festival","Laboratory","Library","Market","Mine","Witch (mean)","Minion","Saboteur (mean)","Duke","Harem","Nobles","Torturer (mean)","Trading Post","Tribute","Upgrade","Bazaar","Corsair","Outpost","Pirate","Sea Witch (mean)","Tactician","Treasury","Wharf","Merchant Ship"]
         }
 
         console.log(cardNames)
@@ -116,14 +120,22 @@
         }
 
         function RandomStart(){
-            if (Math.random()<0){
-                return []
-            }
-            //const starts=[["Bridge"],["Throne Room"],["Laboratory"],["Council Room"],["Native Village"],["Outpost"]]
-            let Seastarts=["Haven","Lighthouse","Native Village","Astrolabe","Fishing Village","Lookout","Sea Chart","Smugglers","Warehouse","Monkey","Blockade","Caravan","Cutpurse","Island","Sailor","Salvager","Tide Pools","Treasure Map","Bazaar","Corsair","Outpost","Pirate","Sea Witch","Tactician","Treasury","Wharf","Merchant Ship"]
+            const starts=["Bridge","Throne Room","Laboratory","Council Room","Native Village","Outpost"]
+            let Seastarts=["Haven","Lighthouse","Native Village","Astrolabe","Fishing Village","Lookout","Sea Chart","Smugglers","Warehouse","Monkey","Blockade","Caravan","Cutpurse","Island","Sailor","Salvager","Tide Pools","Treasure Map","Bazaar","Corsair","Outpost","Pirate","Sea Witch (mean)","Tactician","Treasury","Wharf","Merchant Ship"]
+            Size=Seastarts.length
             //console.log("length",starts.length)
             output=[]
-            for (let count=0;count<=3;count++){
+            let amount=3
+            if (Math.random()>0.1){
+                const RThing=starts[Math.floor(Math.random()*starts.length)];
+                output.push(RThing)
+                //console.log("power card is",output)
+                Seastarts.filter((elemy)=> elemy!=RThing)
+                if (Size!=Seastarts.length){
+                    amount-=1
+                }
+            }
+            for (let count=1;count<=amount;count++){
                 const RIndex=Math.floor(Math.random()*Seastarts.length);
                 output.push(Seastarts[RIndex]);
                 Seastarts.splice(RIndex,1)
@@ -166,16 +178,20 @@
             Sety[Valy]+=1
             let Valey=RandInt(1,3)
             if (Valy==3) {
-                Valey-=1
+                if (Sety[0]<2){
+                    Valey-=1
+                } else{
+                    Valey=RandInt(1,2)
+                }
             }
             Sety[Valey]+=1
             return Sety
         }
         const IDS=["2cost","3cost","4cost","5cost"]
         const Dacts=new Set(["Festival","Mining Village","Nobles","Shanty Town","Throne Room","Tribute","Village","Bazaar","Fishing Village","Native Village","Tactician"])
-        const Sets={"Adventurer": "base","Baron": "intrigue","Bridge": "intrigue","Bureaucrat": "base","Cellar": "base","Chancellor": "base","Chapel": "base","Conspirator": "intrigue","CopperSmith": "intrigue","Council Room": "base","Courtyard": "intrigue","Duke": "intrigue","Feast": "base","Festival": "base","Gardens": "base","Great Hall": "intrigue","Harem": "intrigue","IronWorks": "intrigue","Laboratory": "base","Library": "base","Market": "base","Masquerade": "intrigue","Militia (mean)": "base","Mine": "base","Mining Village": "intrigue","Minion": "intrigue","Moat": "base","Moneylender": "base","Nobles": "intrigue","Pawn": "intrigue","Remodel": "base","Saboteur": "intrigue","Scout": "intrigue","Secret Chamber": "intrigue","Shanty Town": "intrigue","Smithy": "base","Spy": "base","Steward": "intrigue","Swindler": "intrigue","Thief": "base","Throne Room": "base","Torturer (mean)": "intrigue","Trading Post": "intrigue","Tribute": "intrigue","Upgrade": "intrigue","Village": "base","Wishing Well": "intrigue","Witch (mean)": "base","Woodcutter": "base","Workshop": "base","Haven": "seaside","Lighthouse": "seaside","Native Village": "seaside","Astrolabe": "seaside","Fishing Village": "seaside","Lookout": "seaside","Sea Chart": "seaside","Smugglers": "seaside","Warehouse": "seaside","Monkey": "seaside","Blockade": "seaside","Caravan": "seaside","Cutpurse": "seaside","Island": "seaside","Sailor": "seaside","Salvager": "seaside","Tide Pools": "seaside","Treasure Map": "seaside","Bazaar": "seaside","Corsair": "seaside","Outpost": "seaside","Pirate": "seaside","Sea Witch": "seaside","Tactician": "seaside","Treasury": "seaside","Wharf": "seaside","Merchant Ship": "seaside",}
-        const SetColo={"base":"#b99892","intrigue":"#98b0d7","seaside":"#00baf1","aclhemy":"#bcaad2"}
-        const Cols=["#ba9c91","#b99892","#00baf1","#8b6baf"]
+        const Sets={"Adventurer": "base","Baron": "intrigue","Bridge": "intrigue","Bureaucrat": "base","Cellar": "base","Chancellor": "base","Chapel": "base","Conspirator": "intrigue","CopperSmith": "intrigue","Council Room": "base","Courtyard": "intrigue","Duke": "intrigue","Feast": "base","Festival": "base","Gardens": "base","Great Hall": "intrigue","Harem": "intrigue","IronWorks": "intrigue","Laboratory": "base","Library": "base","Market": "base","Masquerade": "intrigue","Militia (mean)": "base","Mine": "base","Mining Village": "intrigue","Minion": "intrigue","Moat": "base","Moneylender": "base","Nobles": "intrigue","Pawn": "intrigue","Remodel": "base","Saboteur (mean)": "intrigue","Scout": "intrigue","Secret Chamber": "intrigue","Shanty Town": "intrigue","Smithy": "base","Spy": "base","Steward": "intrigue","Swindler": "intrigue","Thief": "base","Throne Room": "base","Torturer (mean)": "intrigue","Trading Post": "intrigue","Tribute": "intrigue","Upgrade": "intrigue","Village": "base","Wishing Well": "intrigue","Witch (mean)": "base","Woodcutter": "base","Workshop": "base","Haven": "seaside","Lighthouse": "seaside","Native Village": "seaside","Astrolabe": "seaside","Fishing Village": "seaside","Lookout": "seaside","Sea Chart": "seaside","Smugglers": "seaside","Warehouse": "seaside","Monkey": "seaside","Blockade": "seaside","Caravan": "seaside","Cutpurse": "seaside","Island": "seaside","Sailor": "seaside","Salvager": "seaside","Tide Pools": "seaside","Treasure Map": "seaside","Bazaar": "seaside","Corsair": "seaside","Outpost": "seaside","Pirate": "seaside","Sea Witch (mean)": "seaside","Tactician": "seaside","Treasury": "seaside","Wharf": "seaside","Merchant Ship": "seaside",}
+        const SetColo={"base":"#ba9c91","intrigue":"#99aad6","seaside":"#00baf1","aclhemy":"#bcaad2"}
+        const Cols=["#ba9c91","#99aad6","#00baf1","#8b6baf"]
         function generateRandomOption() {
             let stillLooking=true
             let CardSet=RandomSet()
@@ -231,34 +247,35 @@
                     stillLooking=false
                 }
             }
-                //document.getElementById('output').innerText = "The Cards Are: "+JSON.stringify(cardNames["2cost"]);
-                cardPicks.sort();
-                //console.log(cardPicks)
-                for (const itemy of cardPicks){
-                    const card = document.createElement("span");
-                    card.textContent=itemy;
-                    card.style.color=SetColo[Sets[itemy]];
-                    document.getElementById(findCostCategory(itemy)).appendChild(card);
-                    const card2 = document.createElement("div");
-                    card2.textContent=itemy;
-                    card2.style.color=SetColo[Sets[itemy]];
-                    //const RIndex=Math.floor(Math.random()*Cols.length);
-                    //card.style.color=Cols[RIndex];
-                    document.getElementById('output').appendChild(card2);
-                    console.log(itemy)
-                }
-                let arrayay=[1,1,1,1,1,1,1,0,0,0]
-                for (let i = arrayay.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [arrayay[i], arrayay[j]] = [arrayay[j], arrayay[i]];
-                }
-                let sum = 0;
-                    for (let i = 0; i < Math.min(5, arrayay.length); i++) {
-                        sum += arrayay[i];
-                    }
-            const nummmm = document.createElement("div");
-            nummmm.textContent=sum;
-            document.getElementById('output').appendChild(nummmm);
+            //document.getElementById('output').innerText = "The Cards Are: "+JSON.stringify(cardNames["2cost"]);
+            cardPicks.sort();
+            //console.log(cardPicks)
+            for (const itemy of cardPicks){
+                const card = document.createElement("span");
+                card.textContent=itemy;
+                card.style.color=SetColo[Sets[itemy]];
+                document.getElementById(findCostCategory(itemy)).appendChild(card);
+                const card2 = document.createElement("div");
+                card2.textContent=itemy;
+                card2.style.color=SetColo[Sets[itemy]];
+                //const RIndex=Math.floor(Math.random()*Cols.length);
+                //card.style.color=Cols[RIndex];
+                document.getElementById('output').appendChild(card2);
+                console.log(itemy)
+            }
+            let arrayay=[1,1,1,1,1,1,1,0,0,0]
+            for (let i = arrayay.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arrayay[i], arrayay[j]] = [arrayay[j], arrayay[i]];
+            }
+            let sum = 0;
+            for (let i = 0; i < Math.min(5, arrayay.length); i++) {
+                sum += arrayay[i];
+            }
+            console.log(arrayay)
+            //const nummmm = document.createElement("div");
+            //nummmm.textContent=sum;
+            document.getElementById("coiny").innerText=sum;
         }
         generateRandomOption();
     </script>
