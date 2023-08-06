@@ -61,6 +61,29 @@
             border-radius: 5px;
             margin: 5px; /* Add margin to create spacing between .CostRow divs */
         }
+
+        .input-container {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center horizontally */
+            margin-top: 10px;
+        }
+
+        label {
+            width: auto;
+            color: #f0f0f0;
+        }
+
+        #arrayInput {
+            background-color: #333;
+            color: #f0f0f0;
+            border: none;
+            padding: 5px 10px;
+            font-size: 14px;
+            border-radius: 3px;
+            width: 300px;
+            margin-left: 10px;
+        }
     </style>
 </head>
 <body>
@@ -77,6 +100,10 @@
 
     <div id="coiny">blank</div>
     <button onclick="generateRandomOption()">Generate</button>
+    <div class="input-container">
+        <label for="arrayInput">Force inclusion</label>
+        <input type="text" id="arrayInput" placeholder="Enter cards separated by commas">
+    </div>
     <div class="cardDisp">
         <div class="CostRow" id="2cost"></div>
         <div class="CostRow" id="3cost"></div>
@@ -93,6 +120,22 @@
         }
 
         console.log(cardNames)
+
+        function interpretArray() {
+            const inputText = document.getElementById('arrayInput').value;
+            
+            if (inputText.trim() === '') {
+                console.log('Interpreted array:',[])
+                return []; // Return an empty array if input is blank
+            }
+            
+            const items = inputText.split(',');
+            const trimmedItems = items.map(item => item.trim());
+            
+            console.log('Interpreted array:', trimmedItems);
+            return trimmedItems;
+        }
+
 
         function findCostCategory(cardName) {
             for (const [costCategory, cardsList] of Object.entries(cardNames)) {
@@ -119,18 +162,28 @@
             }
         }
 
+        function removeItemsFromArray(mainArray, itemsToRemove) {
+            return mainArray.filter(item => !itemsToRemove.includes(item));
+        }
+
         function RandomStart(){
-            const starts=["Bridge","Throne Room","Laboratory","Council Room","Native Village","Outpost"]
+            let starts=["Bridge","Throne Room","Laboratory","Council Room","Native Village","Outpost"]
             let Seastarts=["Haven","Lighthouse","Native Village","Astrolabe","Fishing Village","Lookout","Sea Chart","Smugglers","Warehouse","Monkey","Blockade","Caravan","Cutpurse","Island","Sailor","Salvager","Tide Pools","Treasure Map","Bazaar","Corsair","Outpost","Pirate","Sea Witch (mean)","Tactician","Treasury","Wharf","Merchant Ship"]
             Size=Seastarts.length
             //console.log("length",starts.length)
-            output=[]
+            output=interpretArray()
             let amount=1
-            if (Math.random()>0.1){
+            let rnggg=0.1
+            Size2=starts.length
+            starts=removeItemsFromArray(starts,output)
+            if (Size2!=starts.length){
+                rnggg=10
+            }
+            if (Math.random()>rnggg){
                 const RThing=starts[Math.floor(Math.random()*starts.length)];
                 output.push(RThing)
                 //console.log("power card is",output)
-                Seastarts.filter((elemy)=> elemy!=RThing)
+                Seastarts=removeItemsFromArray(Seastarts,output)
                 if (Size!=Seastarts.length){
                     amount-=1
                 }
