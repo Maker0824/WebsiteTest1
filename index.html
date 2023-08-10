@@ -188,11 +188,10 @@
 
         function RandomStart(){
             let starts=["Bridge","Throne Room","Laboratory","Council Room","Native Village","Outpost"]
-            let Seastarts=["Haven","Lighthouse","Native Village","Astrolabe","Fishing Village","Lookout","Sea Chart","Smugglers","Warehouse","Monkey","Blockade","Caravan","Cutpurse","Island","Sailor","Salvager","Tide Pools","Treasure Map","Bazaar","Corsair","Outpost","Pirate","Sea Witch (mean)","Tactician","Treasury","Wharf","Merchant Ship"]
             Size=Seastarts.length
             //console.log("length",starts.length)
             output=interpretArray()
-            let amount=1
+            let amount=0
             let rnggg=0.1
             Size2=starts.length
             starts=removeItemsFromArray(starts,output)
@@ -266,6 +265,7 @@
         const SetColo={"base":"#ba9c91","intrigue":"#99aad6","seaside":"#00baf1","aclhemy":"#bcaad2"}
         const Cols=["#ba9c91","#99aad6","#00baf1","#8b6baf"]
         const Bus=new Set(["Pawn","Astrolabe","Baron","Bridge","Salvager","Council Room","Festival","Market","Wharf"])
+        const Seastarts=new Set(["Haven","Lighthouse","Native Village","Astrolabe","Fishing Village","Lookout","Sea Chart","Smugglers","Warehouse","Monkey","Blockade","Caravan","Cutpurse","Island","Sailor","Salvager","Tide Pools","Treasure Map","Bazaar","Corsair","Outpost","Pirate","Sea Witch (mean)","Tactician","Treasury","Wharf","Merchant Ship"])
         function generateRandomOption() {
             let stillLooking=true
             let CardSet=RandomSet()
@@ -315,11 +315,13 @@
                 }
                 let ActCount=0;
                 let BuyCount=0
+                let SeaCount=0
                 for (const itemy of cardPicks) {
                     if (Dacts.has(itemy)){ActCount+=1}
                     if (Bus.has(itemy)){BuyCount+=1}
+                    if (Seastarts.has(itemy)){SeaCount+=1}
                 }
-                if (ActCount>1 && BuyCount>0){
+                if (ActCount>1 && BuyCount>0 && SeaCount>0){
                     stillLooking=false
                 }
             }
@@ -339,7 +341,7 @@
                 document.getElementById('output').appendChild(card2);
                 console.log(itemy)
             }
-            let arrayay=[1,1,1,1,1,1,1,0,0,0]
+            let arrayay=[0,0,0,0,0,0,0,1,1,1]
             for (let i = arrayay.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [arrayay[i], arrayay[j]] = [arrayay[j], arrayay[i]];
