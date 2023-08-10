@@ -187,7 +187,8 @@
         }
 
         function RandomStart(){
-            let starts=["Bridge","Throne Room","Laboratory","Council Room","Outpost"]
+            let starts=["Bridge","Throne Room","Laboratory","Council Room","Nobles"]
+            let LesStart=["Harem","Minion","Upgrade","Outpost","Pawn","Astrolabe","Caravan"]
             //Size=Seastarts.length
             //console.log("length",starts.length)
             output=interpretArray()
@@ -206,6 +207,15 @@
                 if (Size!=Seastarts.length){
                     amount-=1
                 }*/
+            }
+            if (Math.random()>0.5){
+                const RThing=LesStart[Math.floor(Math.random()*LesStart.length)];
+                output.push(RThing)
+                LesStart=removeItemsFromArray(LesStart,output)
+            }
+            if (Math.random()>0.15){
+                const RThing=LesStart[Math.floor(Math.random()*LesStart.length)];
+                output.push(RThing)
             }
             for (let count=1;count<=amount;count++){
                 const RIndex=Math.floor(Math.random()*Seastarts.length);
