@@ -193,7 +193,7 @@
             //console.log("length",starts.length)
             output=interpretArray()
             let amount=0
-            let rnggg=0.1
+            let rnggg=0.2
             Size2=starts.length
             starts=removeItemsFromArray(starts,output)
             if (Size2!=starts.length){
@@ -208,12 +208,12 @@
                     amount-=1
                 }*/
             }
-            if (Math.random()<0.2){
+            if (Math.random()<0.1){
                 const RThing=LesStart[Math.floor(Math.random()*LesStart.length)];
                 output.push(RThing)
                 LesStart=removeItemsFromArray(LesStart,output)
             }
-            if (Math.random()<0.05){
+            if (Math.random()<0.03){
                 const RThing=LesStart[Math.floor(Math.random()*LesStart.length)];
                 output.push(RThing)
             }
