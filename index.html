@@ -208,12 +208,12 @@
                     amount-=1
                 }*/
             }
-            if (Math.random()<0.1){
+            if (Math.random()<0.65){
                 const RThing=LesStart[Math.floor(Math.random()*LesStart.length)];
                 output.push(RThing)
                 LesStart=removeItemsFromArray(LesStart,output)
             }
-            if (Math.random()<0.03){
+            if (Math.random()<0.025){
                 const RThing=LesStart[Math.floor(Math.random()*LesStart.length)];
                 output.push(RThing)
             }
@@ -328,7 +328,7 @@
                 let ActCount=0;
                 let BuyCount=0
                 let SeaCount=0
-                let AlcCount=0
+                let AlcCount=3
                 for (const itemy of cardPicks) {
                     if (Dacts.has(itemy)){ActCount+=1}
                     if (Bus.has(itemy)){BuyCount+=1}
