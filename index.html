@@ -345,7 +345,15 @@
             for (const itemy of cardPicks){
                 const card = document.createElement("span");
                 card.textContent=itemy;
-                card.style.color=SetColo[Sets[itemy]];
+                if (itemy in Sets){
+                    console.log("in set")
+                    card.style.color=SetColo[Sets[itemy]];
+                } else {
+                    console.log("not in set")
+                    console.log(itemy.slice(0,-4))
+                    card.style.color=SetColo[Sets[itemy.slice(0,-6)]];
+                }
+                
                 console.log(card.style.color)
                 document.getElementById(findCostCategory(itemy)).appendChild(card);
                 const card2 = document.createElement("div");
