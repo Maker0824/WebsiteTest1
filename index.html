@@ -133,8 +133,8 @@
     <div id="output"></div>
     <script>
         const cardNames={
-            "2cost":["Cellar","Chapel","Moat","Courtyard","Pawn","Secret Chamber","Wishing Well (alt)","Haven","Lighthouse","Native Village","Herbalist","Transmute","Vineyard"],
-            "3cost":["Chancellor (alt)","Village","Woodcutter","Workshop","Masquerade","Shanty Town","Steward","Swindler","Astrolabe","Fishing Village","Lookout","Sea Chart","Smugglers","Warehouse","Monkey","Apothecary","Familiar (mean)","Scrying Pool","University"],
+            "2cost":["Cellar","Chapel","Moat","Courtyard","Pawn","Secret Chamber","Haven","Lighthouse","Native Village","Herbalist","Transmute","Vineyard"],
+            "3cost":["Chancellor (alt)","Wishing Well (alt)","Village","Woodcutter","Workshop","Masquerade","Shanty Town","Steward","Swindler","Astrolabe","Fishing Village","Lookout","Sea Chart","Smugglers","Warehouse","Monkey","Apothecary","Familiar (mean)","Scrying Pool","University"],
             "4cost":["Great Hall (alt)","Bureaucrat","Gardens","Militia (mean)","Moneylender","Remodel","Smithy","Spy","Throne Room","Baron","Bridge","Conspirator","CopperSmith","IronWorks","Mining Village","Scout","Blockade","Caravan","Cutpurse","Island","Sailor","Salvager","Tide Pools","Treasure Map","Alchemist","Philosophers Stone"],
             "5cost":["Theif (alt)","Feast (alt)","Adventurer","Council Room","Festival","Laboratory","Library","Market","Mine","Witch (alt)","Minion","Saboteur","Duke","Harem","Nobles","Torturer (mean)","Trading Post","Tribute","Upgrade","Bazaar","Corsair","Outpost","Pirate","Sea Witch","Tactician","Treasury","Wharf","Merchant Ship","Apprentice","Possession","Golem"]
         }
@@ -346,6 +346,7 @@
                 const card = document.createElement("span");
                 card.textContent=itemy;
                 card.style.color=SetColo[Sets[itemy]];
+                console.log(card.style.color)
                 document.getElementById(findCostCategory(itemy)).appendChild(card);
                 const card2 = document.createElement("div");
                 card2.textContent=itemy;
